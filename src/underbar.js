@@ -96,18 +96,32 @@
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
 
-    return _.filter(collection, test);
+     return _.filter(collection, function(i){
+      return !test(i);
+    });
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
-    var result = [];
-    for (var i = 0; i < array.length; i++){
-      if (result.includes(array[i]) === false) {
-        result.push(array[i]);
-      }
+    var iteratedarr = [];
+    var result = []; // true false values
+    
+    if (iterator){
+      _.each(array, function(i){
+        if(!result.includes(iterator(i))){
+          result.push(iterator(i)); // pushes trues and falses
+          iteratedarr.push(i); // pushes value into iteratedarr
+          // console.log(result);
+        }
+      });
+    } else {
+      _.each(array, function(i){
+        if (!iteratedarr.includes(i)){
+          iteratedarr.push(i);
+        }
+      });
     }
-    return result;
+    return iteratedarr;
   };
 
 
@@ -116,6 +130,12 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    var result = [];
+    _.each(collection, function(i) {
+      result.push(iterator(i));
+    });
+    return result;
+
   };
 
   /*
