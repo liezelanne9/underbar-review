@@ -476,9 +476,6 @@
         var orderTraversed = [];
 
         _.reduce([1, 2, 3, 4], function(memo, item) {
-          // FILL_ME_IN
-          // Add a line here that makes this test pass
-          // for a working implementation of reduce
         
           orderTraversed.push(item);
           return memo;
@@ -490,7 +487,7 @@
       it('should continue to call iterator even if the iterator returns undefined', function() {
         var callCount = 0;
         var returnFalsy = function(total, item) {
-          callCount++;
+          callCount++; 
           if (callCount === 1) {
             return undefined;
           } else {
